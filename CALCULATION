@@ -1,5 +1,6 @@
 
 import java.util.Scanner;
+import java.util.Arrays;
 
 
 
@@ -7,7 +8,7 @@ class Main {
     public static String intToRoman(int input){
 
         String str=""+input;
-        //System.out.println(str);
+
 
         String[] dec_1  = new String[]{"1","2","3","4","5","6","7","8","9"};
         String[] roman_1  = new String[]{"X","XX","XXX","XL","L","LX","LXX","LXXX","XC"};
@@ -47,7 +48,7 @@ class Main {
             case 3:return "C";
             default:return "Out range";
         }
-        return "Неверное значение";
+        return "Неверное значение.";
 
     }
 
@@ -66,16 +67,10 @@ class Main {
         String operator = parts[1];
         String number2 = parts[2];
 
+
         if (isNumberValid(number1) && isNumberValid(number2)) {
-
-            if (!isNumberValid(number1) || !isNumberValid(number2)) {
-                throw new IllegalArgumentException("Числа должны быть от 1 до 10");
-            }
-
-
             int num1 = Integer.parseInt(number1);
             int num2 = Integer.parseInt(number2);
-
 
             int result;
             switch (operator) {
@@ -100,8 +95,8 @@ class Main {
 
             return String.valueOf(result);
         }
-        else {
-            String[] roman  = new String[]{"I","II","III","IV","V","VI","VII","VIII","IX,X"};
+        else if(isRomanNumberValid(number1) && isRomanNumberValid(number2)) {
+            String[] roman  = new String[]{"I","II","III","IV","V","VI","VII","VIII","IX","X"};
             int numb_1=0 ;
              int numb_2=0;
 
@@ -114,6 +109,7 @@ class Main {
 
                 case "-":
                     if (numb_1-numb_2>0)result=numb_1-numb_2;
+                    //else throw new ArithmeticException("В римской систеие счисления нет отрицательных чисел и нуля");
 
                 break;
 
@@ -128,12 +124,14 @@ class Main {
 
 
         }
-
-
-
+        return null;
 
     }
 
+    private static boolean isRomanNumberValid(String number) {
+        String[] roman  = new String[]{"I","II","III","IV","V","VI","VII","VIII","IX","X"};
+        return Arrays.asList(roman).contains(number);
+    }
     private static boolean isNumberValid(String number) {
         try {
             int num = Integer.parseInt(number);
@@ -144,12 +142,21 @@ class Main {
     }
 
     public static void main(String[] args) {
-         System.out.println("Input : ");
+        /* System.out.println("Input : ");
         Scanner sc=new Scanner(System.in);
         String str=sc.nextLine();
 
 
-        System.out.println("Output:\n" + calc(str));
+        System.out.println("Output:\n" + calc(str));*/
+        String[] roman  = new String[]{"I","II","III","IV","V","VI","VII","VIII","IX","X"};
+        for (String counter_0:roman){
+            for (String counter_1:roman){
+                System.out.println("input : "+counter_0 + " * "+counter_1 + "\n" +"Output:"  );
+                System.out.println(calc(counter_0+ " * " +counter_1));
+            }
+        }
+
+
 
     }
 }
